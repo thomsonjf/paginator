@@ -1,0 +1,5 @@
+# Ignore PHP Storm files
+.idea/
+
+# Ignore Vendor Folder
+vendor/
