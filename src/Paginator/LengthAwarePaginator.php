@@ -111,7 +111,7 @@ class LengthAwarePaginator implements PaginationInterface
         if ($this->getPageCount() > 0) {
             // It's only the last page that's likely to have less than perPage records
             if ($this->currentPage === $this->getPageCount()) {
-                return $this->getTotalElementsCount() % $this->perPage;
+                return $this->getTotalElementsCount() - (($this->getPageCount() - 1) * $this->perPage);
             }
 
             return $this->perPage;
