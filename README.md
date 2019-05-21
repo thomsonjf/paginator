@@ -20,8 +20,11 @@ Usage is simple, to install, add the following to your project's `composer.json`
 ]
 ```
 
-Then add the 
+Then add the library in the usual way using composer:
 
+```
+composer require thomsonjf/paginator
+```
 
 
 **Tests**
