@@ -14,6 +14,7 @@ interface PaginationInterface
      *
      * @param int $page
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     public function paginate(int $page): array;
 
