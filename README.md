@@ -26,6 +26,35 @@ Then add the library in the usual way using composer:
 composer require thomsonjf/paginator
 ```
 
+To use the library:
+
+```
+use ThomsonJf\Pagination\Paginator\LengthAwarePaginator;
+
+// Paginate an array of 5 items, 2 per page
+$paginator = new LengthAwarePaginator([1, 2, 3, 4, 5], 2);
+$paginator->paginate(1);    // 1st page [1, 2]
+$paginator->paginate(2);    // 2nd page [3, 4]
+$paginator->paginate(3);    // 3rd page [5]
+
+// Also works with \ArrayObject or \ArrayIterator objects
+$paginator = new LengthAwarePaginator(new \ArrayObject([1, 2, 3, 4, 5]), 2);
+$paginator->paginate(1);    // 1st page [1, 2]
+$paginator->paginate(2);    // 2nd page [3, 4]
+$paginator->paginate(3);    // 3rd page [5]
+
+// Helper Methods
+$paginator->hasNextPage();                  // bool - is there a next page after the current page?
+$paginator->hasPreviousPage();              // bool - is there a previous page before the current page?
+$paginator->getCurrentPageElementsCount();  // int - get number of elements on current page
+$paginator->getTotalElementsCount();        // int - get a count of all elements
+$paginator->getPagesList();                 // array - get an integer list of all pages e.g. [1, 2, 3]
+$paginator->getPageCount();                 // int - get a count of pages
+```
+
+**Helper Methods**
+
+
 
 **Tests**
 ```
