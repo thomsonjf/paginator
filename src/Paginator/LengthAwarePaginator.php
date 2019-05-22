@@ -70,10 +70,16 @@ class LengthAwarePaginator implements PaginationInterface
         // seek to offset (one based index)
         $offset = ($page - 1) * $this->perPage;
 
-        if ($offset > 0) {
-            $this->iterator->seek($offset);
-        } else {
-            $this->iterator->rewind();
+        try {
+            if ($offset > 0) {
+                $this->iterator->seek($offset);
+            } else {
+                $this->iterator->rewind();
+            }
+        } catch(\OutOfBoundsException $ex) {
+            throw new \InvalidArgumentException(
+                sprintf('The page requested [%d] does not exist', $page)
+            );
         }
 
         $pageElements = [];

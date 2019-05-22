@@ -94,6 +94,33 @@ final class LengthAwarePaginatorTest extends TestCase
     }
 
     /**
+     * Test defensive behaviour with out of range pages
+     */
+    public function testPaginatorAccessNotExistingPages(): void
+    {
+        $paginator = new LengthAwarePaginator(range(1, 23), 5);
+
+        // initial state, no previous page
+        $this->assertFalse($paginator->hasPreviousPage());
+
+        $this->assertEquals($paginator->getTotalElementsCount(), 23);
+        $this->assertEquals($paginator->getPageCount(), 5);
+        $this->assertCount(5, $paginator->getPagesList());
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The page requested [10] does not exist');
+
+        // access out of bounds pages
+        $elements = $paginator->paginate(10);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The page requested [-10] does not exist');
+
+        // access out of bounds pages
+        $elements = $paginator->paginate(-10);
+    }
+
+    /**
      * Provides test scenarios with varying input types
      *
      * @return array
